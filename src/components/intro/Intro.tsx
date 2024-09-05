@@ -6,7 +6,7 @@ import DarkMode from "../../redux/theme/DarkMode";
 
 const IntroBox = styled.div<{ color: string }>`
   width: 100%;
-  background-color: ${({ color }) => color}; // Redux에서 가져온 색상 적용
+  background-color: ${({ color }) => color};
   height: 100vh;
   position: sticky;
   z-index: 1;
@@ -27,29 +27,30 @@ const TxtBox = styled(motion.div)`
   margin-top: 10vw;
 `;
 
-const Title = styled.h1`
+const Title = styled.h1<{ text: string }>`
   position: relative;
   top: 2vw;
+  color: ${({ text }) => text}; // Redux에서 가져온 색상 적용
 `;
 
-const SubTitle = styled(motion.p)<{ color: string }>`
+const SubTitle = styled(motion.p)<{ text: string }>`
   font-size: 3vw;
-  font-weight: bold;
-  color: ${({ color }) => color}; // Redux에서 가져온 색상 적용
+  font-weight: 600;
+  color: ${({ text }) => text}; // Redux에서 가져온 색상 적용
 `;
 
-const CircleBox = styled(motion.div)`
-  background-color: #fff;
+const CircleBox = styled(motion.div)<{ box: string }>`
+  background-color: ${({ box }) => box}; // 스타일 속성으로 color 추가
   width: 45vw;
   height: 95vh;
   border-radius: 100vw;
   margin: 0 auto;
 `;
 
-const StyledLetter = styled(motion.h1)<{ color: string }>`
+const StyledLetter = styled(motion.h1)<{ text: string }>`
   display: inline-block;
   font-size: 11vw;
-  -webkit-text-stroke: 2px ${({ color }) => color}; // Redux에서 가져온 색상 적용
+  -webkit-text-stroke: 2px ${({ text }) => text}; // 텍스트 색상 적용
   color: transparent;
   font-weight: 900;
 `;
@@ -112,13 +113,15 @@ const Check = styled(motion.div)<{ color: string }>`
   }
 `;
 
-const CheckText = styled(motion.p)<{ color: string }>`
+const CheckText = styled(motion.p)<{ text: string }>`
   font-size: 1.25rem;
-  color: ${({ color }) => color}; // Redux에서 가져온 색상 적용
+  color: ${({ text }) => text}; // Redux에서 가져온 색상 적용
 `;
 
 const Intro = () => {
   const color = useSelector((state: RootState) => state.theme.color); // Redux에서 색상 가져오기
+  const textColor = useSelector((state: RootState) => state.theme.text); // 텍스트 색상 가져오기
+  const box = useSelector((state: RootState) => state.theme.box); // 텍스트 색상 가져오기
   const text = "Front-End";
 
   return (
@@ -135,6 +138,7 @@ const Intro = () => {
             delay: 0.3,
             ease: [0.3, 0.71, 0.2, 1.01],
           }}
+          box={box}
         />
         <TxtBox
           initial={{ opacity: 0 }}
@@ -145,8 +149,7 @@ const Intro = () => {
             ease: [0.3, 0.71, 0.2, 1.01],
           }}
         >
-          <Title>
-            {" "}
+          <Title text={textColor}>
             <motion.h1
               whileInView="visible"
               initial="hidden"
@@ -156,7 +159,7 @@ const Intro = () => {
                 <StyledLetter
                   key={index}
                   variants={letterVariant}
-                  color={color}
+                  text={textColor}
                 >
                   {letter === " " ? "\u00A0" : letter}
                 </StyledLetter>
@@ -174,7 +177,7 @@ const Intro = () => {
               delay: 0.3,
               ease: [0.3, 0.71, 0.2, 1.01],
             }}
-            color={color}
+            text={textColor}
           >
             프론트엔드 개발자 장원준입니다.
           </SubTitle>
@@ -193,13 +196,11 @@ const Intro = () => {
         >
           <CheckBox2>
             <DarkMode />
-
-            {/* <Check color={color}></Check> */}
-            <CheckText color={color}>어둡게</CheckText>
+            <CheckText text={textColor}>어둡게</CheckText>
           </CheckBox2>
           <CheckBox2>
             <Check color={color} />
-            <CheckText color={color}>간단하게</CheckText>
+            <CheckText text={textColor}>간단하게</CheckText>
           </CheckBox2>
         </CheckBox>
       </Flex>
