@@ -5,13 +5,13 @@ import { RootState } from "../../redux/store/store"; // RootState 타입 임포�
 import DarkMode from "../../redux/theme/DarkMode";
 
 const IntroBox = styled.div<{ color: string }>`
+  transition: 0.2s;
   width: 100%;
   background-color: ${({ color }) => color};
   height: 100vh;
   position: sticky;
   z-index: 1;
   top: 0;
-  transition: 0.5s;
 `;
 
 const Flex = styled.div`
@@ -99,11 +99,11 @@ const CheckBox2 = styled(motion.div)`
   align-items: center;
 `;
 
-const Check = styled(motion.div)<{ color: string }>`
+const Check = styled(motion.div)<{ color: string; text: string }>`
   transition: 0.3s;
   width: 2.5vw;
   height: 2.5vw;
-  border: 2px solid ${({ color }) => color}; // Redux에서 가져온 색상 적용
+  border: 2px solid ${({ text }) => text}; // Redux에서 가져온 색상 적용
   border-radius: 50vw;
   margin-right: 2vw;
   cursor: pointer;
@@ -199,7 +199,7 @@ const Intro = () => {
             <CheckText text={textColor}>어둡게</CheckText>
           </CheckBox2>
           <CheckBox2>
-            <Check color={color} />
+            <Check color={color} text={textColor} />
             <CheckText text={textColor}>간단하게</CheckText>
           </CheckBox2>
         </CheckBox>

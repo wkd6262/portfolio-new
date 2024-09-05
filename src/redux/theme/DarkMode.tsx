@@ -32,9 +32,9 @@ const DarkMode = () => {
     border: 2px solid ${({ text }) => text}; // Redux에서 가져온 색상 적용
     border-radius: 50vw;
     margin-right: 2vw;
-    background-color: ${({ checked, color }) =>
-      checked ? color : "transparent"}; // 다크모드일 때 색상 채우기
-    color: ${({ color }) => color}; // 텍스트 색상 적용
+    background-color: ${({ checked, text }) =>
+      checked ? text : "transparent"}; // 다크모드일 때 색상 채우기
+    color: ${({ text }) => text}; // 텍스트 색상 적용
     cursor: pointer;
     &:hover {
       background-color: ${({ text }) => text}; // Redux에서 가져온 색상 적용
